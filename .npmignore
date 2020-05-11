@@ -1,1 +1,8 @@
 /src
+/.rpt2_cache
+/tests
+
+.prettierrc
+jest.config.js
+rollup.config.js
+tsconfig.json
