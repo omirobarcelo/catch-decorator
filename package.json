@@ -1,5 +1,5 @@
 {
-  "name": "catch-decorator",
+  "name": "@magna_shogun/catch-decorator",
   "version": "1.0.0",
   "description": "Handle exceptions by just annotating a method or class with a decorator. Based on enkot/catch-decorator.",
   "main": "dist/index.js",

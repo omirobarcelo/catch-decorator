@@ -1,4 +1,8 @@
 # Catch Decorator
+![npm](https://img.shields.io/npm/v/@magna_shogun/catch-decorator?color=blueviolet)
+![npm bundle size](https://img.shields.io/bundlephobia/min/@magna_shogun/catch-decorator?color=blueviolet)
+![NPM](https://img.shields.io/npm/l/@magna_shogun/catch-decorator)
+
 ECMAScript/TypeScript Catch decorator for classes and functions. Based on [@enkot/catch-decorator](https://github.com/enkot/catch-decorator).
 
 ## Install
