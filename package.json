@@ -1,0 +1,41 @@
+{
+  "name": "catch-decorator",
+  "version": "1.0.0",
+  "description": "Handle exceptions by just annotating a method or class with a decorator. Based on enkot/catch-decorator.",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "scripts": {
+    "build": "rollup --config",
+    "test": "npm run build && jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/omirobarcelo/catch-decorator"
+  },
+  "keywords": [
+    "try",
+    "catch",
+    "decorator",
+    "javascript",
+    "typescript",
+    "errors",
+    "exceptions",
+    "handling"
+  ],
+  "author": "Oriol Miro-Barcelo <omirobarcelo@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/omirobarcelo/catch-decorator/issues"
+  },
+  "homepage": "https://github.com/omirobarcelo/catch-decorator#readme",
+  "devDependencies": {
+    "@types/jest": "^22.2.3",
+    "jest": "^23.0.1",
+    "rollup": "^0.59.3",
+    "rollup-plugin-license": "^0.7.0",
+    "rollup-plugin-typescript2": "^0.14.0",
+    "ts-jest": "^22.4.6",
+    "ts-loader": "^2.0.3",
+    "typescript": "^2.7.2"
+  }
+}
