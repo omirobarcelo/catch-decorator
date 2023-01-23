@@ -17,11 +17,37 @@ function _generateDescriptor(
   errorType: any,
   handler: HandlerFunction
 ): PropertyDescriptor {
+  if (!descriptor.value) {
+    const getter = descriptor.get;
+    const setter = descriptor.set;
+
+    if (getter) {
+      descriptor.get = function() {
+        try {
+          return getter.apply(this);
+        } catch (error) {
+          _handleError(this, errorType, handler, error as Error);
+        }
+      };
+    }
+
+    if (setter) {
+      descriptor.set = function(v: any) {
+        try {
+          return setter.apply(this, [v]);
+        } catch (error) {
+          _handleError(this, errorType, handler, error as Error);
+        }
+      };
+    }
+
+    return descriptor;
+  }
   // Save a reference to the original method
   const originalMethod = descriptor.value;
 
   // Rewrite original method with try/catch wrapper
-  descriptor.value = function (...args: any[]) {
+  descriptor.value = function(...args: any[]) {
     try {
       const result = originalMethod.apply(this, args);
 
@@ -36,7 +62,7 @@ function _generateDescriptor(
       // Return actual result
       return result;
     } catch (error) {
-      _handleError(this, errorType, handler, error);
+      _handleError(this, errorType, handler, error as Error);
     }
   };
 
@@ -45,7 +71,7 @@ function _generateDescriptor(
 
 // Decorator factory function
 export const Catch = (errorType: any, handler: HandlerFunction): any => {
-  return (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {
+  return (target: any, _propertyKey: string, descriptor: PropertyDescriptor) => {
     // Method decorator
     if (descriptor) {
       return _generateDescriptor(descriptor, errorType, handler);
@@ -55,7 +81,9 @@ export const Catch = (errorType: any, handler: HandlerFunction): any => {
       // Iterate over class properties except constructor
       for (const propertyName of Reflect.ownKeys(target.prototype).filter(prop => prop !== 'constructor')) {
         const desc = Object.getOwnPropertyDescriptor(target.prototype, propertyName)!;
-        const isMethod = desc.value instanceof Function;
+        const isMethod = desc.value instanceof Function
+          || desc.get instanceof Function
+          || desc.set instanceof Function;
         if (!isMethod) continue;
         Object.defineProperty(target.prototype, propertyName, _generateDescriptor(desc, errorType, handler));
       }
